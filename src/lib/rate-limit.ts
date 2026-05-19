@@ -152,14 +152,13 @@ export async function rateLimit(ip: string, endpoint: string): Promise<RateLimit
     };
   } catch (dbError) {
     console.error("[RATE_LIMIT_ERROR] Database rate limiter failed:", dbError);
-    // Fail-closed: block the request when rate limiting is unavailable.
-    // Per Kerckhoff's Principle, failing open lets attackers bypass rate limiting
-    // by DoS-ing the database, then brute-forcing credentials freely.
+    // Fail-open on database errors to avoid locking out legitimate users due to schema or connection issues.
+    // The underlying action (user login/signup) will still fail safely if the DB is completely down.
     return {
-      success: false,
+      success: true,
       limit,
-      remaining: 0,
-      reset: new Date(Date.now() + duration),
+      remaining: 1,
+      reset: new Date(),
     };
   }
 }
