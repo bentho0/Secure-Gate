@@ -1,5 +1,3 @@
-import { headers } from "next/headers";
-
 /**
  * Resolves the client IP address from the request.
  *
@@ -13,6 +11,7 @@ import { headers } from "next/headers";
  *   3. Loopback fallback for local development
  */
 export async function getClientIp(): Promise<string> {
+  const { headers } = await import("next/headers");
   const headersList = headers();
   const realIp = headersList.get("x-real-ip");
   const forwardedFor = headersList.get("x-forwarded-for");
