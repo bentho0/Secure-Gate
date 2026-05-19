@@ -1,0 +1,45 @@
+{
+    "color": {
+        "key": {
+            "brand": "#1A7F3C",
+            "brandHover": "#16692F",
+            "ink": "#0F1115",
+            "inkMuted": "#5A6270",
+            "inkSubtle": "#9AA1AD",
+            "surface": "#F7F7F5",
+            "bg": "#FFFFFF",
+            "border": "#E5E7EB",
+            "success": "#15803D",
+            "warning": "#B45309",
+            "danger": "#B91C1C"
+        },
+        "role": {
+            "light": {
+                "bg": "{color.key.bg}",
+                "surface": "{color.key.surface}",
+                "ink": "{color.key.ink}",
+                "inkMuted": "{color.key.inkMuted}",
+                "inkSubtle": "{color.key.inkSubtle}",
+                "border": "{color.key.border}",
+                "brand": "{color.key.brand}",
+                "brandHover": "{color.key.brandHover}",
+                "success": "{color.key.success}",
+                "warning": "{color.key.warning}",
+                "danger": "{color.key.danger}"
+            },
+            "dark": {
+                "bg": "{color.key.bg}",
+                "surface": "{color.key.surface}",
+                "ink": "{color.key.ink}",
+                "inkMuted": "{color.key.inkMuted}",
+                "inkSubtle": "{color.key.inkSubtle}",
+                "border": "{color.key.border}",
+                "brand": "{color.key.brand}",
+                "brandHover": "{color.key.brandHover}",
+                "success": "{color.key.success}",
+                "warning": "{color.key.warning}",
+                "danger": "{color.key.danger}"
+            }
+        }
+    }
+}

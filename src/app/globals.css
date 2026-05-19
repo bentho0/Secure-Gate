@@ -1,0 +1,19 @@
+@import "../../tokens/design-tokens.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body-medium-regular-font-family), system-ui, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Custom styled scrollbars or focus outlines can be added here */
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 1px;
+}
