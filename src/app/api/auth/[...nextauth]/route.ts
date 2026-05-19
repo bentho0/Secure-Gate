@@ -7,7 +7,10 @@ console.log("[BUILD DEBUG] NEXTAUTH_URL is defined:", !!process.env.NEXTAUTH_URL
 
 export const dynamic = "force-dynamic";
 
-const handler = NextAuth(authOptions);
+export async function GET(req: Request) {
+  return NextAuth(authOptions)(req);
+}
 
-export { handler as GET, handler as POST };
-
+export async function POST(req: Request) {
+  return NextAuth(authOptions)(req);
+}

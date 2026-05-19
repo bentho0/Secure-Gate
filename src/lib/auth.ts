@@ -93,5 +93,5 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
   },
-  secret: process.env.NEXTAUTH_SECRET || (process.env.NEXT_PHASE === "phase-production-build" ? "build-placeholder-secret" : undefined),
+  secret: process.env.NEXTAUTH_SECRET,
 };
