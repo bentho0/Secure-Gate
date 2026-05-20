@@ -109,7 +109,7 @@ export default function ResetPasswordPage({ params }: ResetPasswordProps) {
                   className="w-full pl-9 pr-3 py-2.5 bg-bg border border-border rounded-xl text-sm text-ink placeholder-ink-subtle focus:outline-none focus:border-brand disabled:opacity-50 transition duration-200"
                 />
               </div>
-              <PasswordStrength password={password} />
+              {password.length > 0 && <PasswordStrength password={password} />}
             </div>
 
             <div>
