@@ -4,7 +4,7 @@ import React, { useState, useTransition } from "react";
 import Link from "next/link";
 import { resetPassword } from "@/actions/reset-password";
 import { PasswordStrength } from "@/components/auth/password-strength";
-import { KeyRound, Loader2, ShieldCheck, ArrowLeft } from "lucide-react";
+import { KeyRound, Loader2, ShieldCheck, ArrowLeft, Eye, EyeOff } from "lucide-react";
 
 interface ResetPasswordProps {
   params: {
@@ -15,6 +15,8 @@ interface ResetPasswordProps {
 export default function ResetPasswordPage({ params }: ResetPasswordProps) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
@@ -68,7 +70,7 @@ export default function ResetPasswordPage({ params }: ResetPasswordProps) {
         </div>
 
         {error && (
-          <div className="p-3 bg-danger/10 border border-danger/20 text-danger text-sm rounded-xl font-medium">
+          <div className="p-3 bg-danger/10 border border-danger/20 text-danger text-sm rounded-xl font-medium mb-4">
             {error}
           </div>
         )}
@@ -89,47 +91,65 @@ export default function ResetPasswordPage({ params }: ResetPasswordProps) {
         )}
 
         {!success && (
-          <form className="space-y-4" onSubmit={onSubmit}>
-            <div>
+          <form className="" onSubmit={onSubmit}>
+            <div className="mb-20">
               <label htmlFor="password" className="block text-xs font-semibold text-ink-muted uppercase tracking-wider mb-1.5">
                 New Password
               </label>
               <div className="relative">
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-ink-subtle">
-                  <KeyRound className="h-4 w-4" />
+                  <KeyRound className="h-5 w-5" />
                 </span>
                 <input
                   id="password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   required
                   disabled={isPending}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full pl-9 pr-3 py-2.5 bg-bg border border-border rounded-xl text-sm text-ink placeholder-ink-subtle focus:outline-none focus:border-brand disabled:opacity-50 transition duration-200"
+                  className="w-full pl-9 pr-10 py-2.5 bg-bg border border-border rounded-xl text-sm text-ink placeholder-ink-subtle focus:outline-none focus:border-brand disabled:opacity-50 transition duration-200"
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  disabled={isPending}
+                  className="absolute inset-y-0 right-0 flex items-center pr-3 text-ink-subtle hover:text-ink transition-colors disabled:opacity-50"
+                  tabIndex={-1}
+                >
+                  {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                </button>
               </div>
               {password.length > 0 && <PasswordStrength password={password} />}
             </div>
 
-            <div>
+            <div className="mb-24">
               <label htmlFor="confirmPassword" className="block text-xs font-semibold text-ink-muted uppercase tracking-wider mb-1.5">
                 Confirm Password
               </label>
               <div className="relative">
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-ink-subtle">
-                  <KeyRound className="h-4 w-4" />
+                  <KeyRound className="h-5 w-5" />
                 </span>
                 <input
                   id="confirmPassword"
-                  type="password"
+                  type={showConfirmPassword ? "text" : "password"}
                   required
                   disabled={isPending}
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full pl-9 pr-3 py-2.5 bg-bg border border-border rounded-xl text-sm text-ink placeholder-ink-subtle focus:outline-none focus:border-brand disabled:opacity-50 transition duration-200"
+                  className="w-full pl-9 pr-10 py-2.5 bg-bg border border-border rounded-xl text-sm text-ink placeholder-ink-subtle focus:outline-none focus:border-brand disabled:opacity-50 transition duration-200"
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  disabled={isPending}
+                  className="absolute inset-y-0 right-0 flex items-center pr-3 text-ink-subtle hover:text-ink transition-colors disabled:opacity-50"
+                  tabIndex={-1}
+                >
+                  {showConfirmPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                </button>
               </div>
             </div>
 
@@ -140,7 +160,7 @@ export default function ResetPasswordPage({ params }: ResetPasswordProps) {
             >
               {isPending ? (
                 <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  <Loader2 className="mr-2 h-5 w-5 animate-spin" />
                   Updating password...
                 </>
               ) : (
@@ -150,7 +170,7 @@ export default function ResetPasswordPage({ params }: ResetPasswordProps) {
           </form>
         )}
 
-        <div className="text-center pt-2">
+        <div className="text-center pt-6 border-t border-border mt-6">
           <Link
             href="/auth?mode=login"
             className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand hover:underline"
