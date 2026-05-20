@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 
 import { registerUser } from "@/actions/register";
 import { PasswordStrength } from "@/components/auth/password-strength";
-import { User, Mail, KeyRound, Loader2 } from "lucide-react";
+import { User, Mail, KeyRound, Loader2, Eye, EyeOff } from "lucide-react";
 
 export default function SignupForm() {
   const router = useRouter();
@@ -15,6 +15,7 @@ export default function SignupForm() {
   const [email, setEmail] = useState("");
   const [emailTouched, setEmailTouched] = useState(false);
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [passwordTouched, setPasswordTouched] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
@@ -125,15 +126,24 @@ export default function SignupForm() {
               </span>
               <input
                 id="password"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 required
                 disabled={isPending}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 onBlur={() => setPasswordTouched(true)}
                 placeholder="••••••••"
-                className="w-full pl-9 pr-3 py-2.5 bg-bg border border-border rounded-xl text-sm text-ink placeholder-ink-subtle focus:outline-none focus:border-brand disabled:opacity-50 transition duration-200"
+                className="w-full pl-9 pr-10 py-2.5 bg-bg border border-border rounded-xl text-sm text-ink placeholder-ink-subtle focus:outline-none focus:border-brand disabled:opacity-50 transition duration-200"
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                disabled={isPending}
+                className="absolute inset-y-0 right-0 flex items-center pr-3 text-ink-subtle hover:text-ink transition-colors disabled:opacity-50"
+                tabIndex={-1}
+              >
+                {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+              </button>
             </div>
             {passwordTouched && !password && (
               <p className="text-xs text-danger mt-1.5">This field cannot be empty</p>
